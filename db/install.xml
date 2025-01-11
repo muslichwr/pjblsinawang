@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/pjblsinawang/db" VERSION="1.0" COMMENT="XMLDB file for pjbl_sinawang module">
+    <TABLES>
+        <TABLE NAME="pjblsinawang" COMMENT="Table to store pjbl_sinawang activities">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Name of the pjbl_sinawang activity"/>
+                <FIELD NAME="intro" TYPE="text" NOTNULL="false" COMMENT="Introduction text"/>
+                <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" COMMENT="Format of the intro text"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the record was created"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the record was last modified"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <!-- <TABLE NAME="pjbl_sinawang_tasks" COMMENT="Table to store tasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="User ID, NULL if task is for a group"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="Group ID, NULL if task is for an individual"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Title of the task"/>
+                <FIELD NAME="description" TYPE="text" NOTNULL="true" COMMENT="Description of the task"/>
+                <FIELD NAME="status_planning" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on planning page"/>
+                <FIELD NAME="status_scheduling" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on scheduling page"/>
+                <FIELD NAME="status_execution" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on execution page"/>
+                <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Due date of the task"/>
+                <FIELD NAME="grade" TYPE="float" NOTNULL="false" DEFAULT="0" COMMENT="Grade for the task"/>
+                <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task was created"/>
+                <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task was last updated"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Course Module ID"/>
+                <FIELD NAME="revision_requested" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="1 if revision requested, 0 otherwise"/>
+                <FIELD NAME="new_status" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="NULL" COMMENT="New status requested by the student"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_subtasks" COMMENT="Table to store subtasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="taskid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Task ID"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Title of the subtask"/>
+                <FIELD NAME="description" TYPE="text" NOTNULL="true" COMMENT="Description of the subtask"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status of the subtask"/>
+                <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Due date of the subtask"/>
+                <FIELD NAME="is_completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Subtask completion status"/>
+                <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the subtask was created"/>
+                <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the subtask was last updated"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Course Module ID"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+                <KEY NAME="taskid_fk" TYPE="foreign" FIELDS="taskid" REFTABLE="pjbl_sinawang_tasks" REFFIELDS="id" ONDELETE="cascade" COMMENT="Foreign key referencing pjbl_sinawang_tasks(id)"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_satu" COMMENT="Table to store tasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="orientasi" TYPE="text" NOTNULL="false" COMMENT="Orientasi masalah text"/>
+                <FIELD NAME="analisis" TYPE="text" NOTNULL="false" COMMENT="Analisis text"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
+                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_dua" COMMENT="Table to store tasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="indikator" TYPE="text" NOTNULL="false" COMMENT="Indikator masalah text"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
+                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
+                <FIELD NAME="indikator_masalah" TYPE="text" NOTNULL="false" COMMENT="Indikator masalah masalah terbaru text"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_tigaplus" COMMENT="Table to store tasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="rancangan_program" TYPE="text" NOTNULL="false" COMMENT="Rancangan Program masalah text"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
+                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_tiga" COMMENT="Table to store tasks for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="file_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the uploaded file"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
+                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_lima" COMMENT="Table to store project and report file data for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="file_proyek_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the project file"/>
+                <FIELD NAME="file_laporan_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the report file"/>
+                <FIELD NAME="link" TYPE="text" NOTNULL="false" COMMENT="Link for additional information"/>
+                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status of the project or report"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjbl_sinawang_enam" COMMENT="Table to store evaluation scores and feedback for pjbl_sinawang">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
+                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
+                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
+                <FIELD NAME="class_object" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Class and Object"/>
+                <FIELD NAME="encapsulation" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Encapsulation"/>
+                <FIELD NAME="inheritance" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Inheritance"/>
+                <FIELD NAME="logic_function" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Function and Logic"/>
+                <FIELD NAME="project_report" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Project Report"/>
+                <FIELD NAME="total_score" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Total score for the student"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE> -->
+    </TABLES>
+</XMLDB>
