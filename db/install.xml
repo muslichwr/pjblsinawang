@@ -14,6 +14,23 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
             </KEYS>
         </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_satu" COMMENT="Table to store sintaks 1 for pjblsinawang activities">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="orientasi_masalah" TYPE="text" NOTNULL="false" COMMENT="Text detailing the problem orientation"/>
+                <FIELD NAME="rumusan_masalah" TYPE="text" NOTNULL="false" COMMENT="Text detailing the problem formulation"/>
+                <FIELD NAME="indikator" TYPE="text" NOTNULL="false" COMMENT="Indicators"/>
+                <FIELD NAME="analisis" TYPE="text" NOTNULL="false" COMMENT="Analysis of the problem"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback Teacher Only"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status Teacher Only"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
         <!-- <TABLE NAME="pjbl_sinawang_tasks" COMMENT="Table to store tasks for pjbl_sinawang">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
