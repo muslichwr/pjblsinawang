@@ -9,6 +9,9 @@ $pjblsinawang = $cm->instance;
 $pjblsinawang = $DB->get_record('pjblsinawang', array('id' => $pjblsinawang), '*', MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
+// Cek apakah pengguna adalah guru
+$is_teacher = has_capability('moodle/course:manageactivities', context_course::instance($course->id));
+
 $context = context_module::instance($cm->id);
 $PAGE->set_context($context);
 $PAGE->set_cm($cm, $course);
@@ -19,36 +22,59 @@ $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
 
 $groups = groups_get_all_groups($course->id);
+$current_user_group = groups_get_all_groups($course->id, $USER->id); // Menampilkan grup saat ini untuk siswa
 
 echo '<link rel="stylesheet" type="text/css" href="'.$CFG->wwwroot.'/mod/pjblsinawang/css/style.css">';
 echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">';
 echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">';
 echo '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>';
 
-echo '<select id="groupSelect" class="form-select mb-3">';
-echo '<option>Select a Group</option>';
-$groups = groups_get_all_groups($course->id);
-foreach ($groups as $group) {
-    echo '<option value="'.$group->id.'">'.$group->name.'</option>';
+echo '<div id="contentArea">'; // Div untuk konten yang dinamis
+
+if ($is_teacher) {
+    // Dropdown untuk memilih grup bagi guru
+    echo '<select id="groupSelect" class="form-select mb-3">
+            <option>Select a Group</option>';
+    foreach ($groups as $group) {
+        echo '<option value="'.$group->id.'">'.$group->name.'</option>';
+    }
+    echo '</select>';
+} else {
+    // Untuk siswa, tampilkan grup mereka langsung
+    if ($current_user_group) {
+        $group = reset($current_user_group); // Mengambil grup pertama (satu grup)
+        echo '<p><strong>Group: </strong>' . $group->name . '</p>';
+        echo '<input type="hidden" id="groupSelect" value="'.$group->id.'" />';
+    } else {
+        echo '<p>No group found for this user.</p>';
+    }
 }
-echo '</select>';
 
 echo '<button id="showMembers" class="btn btn-primary mb-3">Show Members</button>';
 
-// Div untuk menampilkan anggota (di bawah tombol)
 echo '<div id="membersList" class="mt-3" style="display:none;"></div>';
 
-// Tambahkan tombol untuk menampilkan Sintaks 1 form
-echo '<button id="showSintaksForm" class="btn btn-secondary mt-3" style="display:none;">Show Sintaks Form</button>';
+echo '<div id="showSintaksBtns" style="display:none;">
+        <button id="showSintaks1" class="btn btn-secondary mt-3">Sintaks 1</button>
+        <button id="showSintaks2" class="btn btn-secondary mt-3">Sintaks 2</button>
+        <button id="showSintaks3" class="btn btn-secondary mt-3">Sintaks 3</button>
+      </div>';
 
-echo '<div id="formSintaks1" style="display:none;"></div>';
+echo '<div id="formSintaks" style="display:none;"></div>';
 
-// **Tambahkan input tersembunyi untuk cmid**
-echo '<input type="hidden" id="cmid" value="'.$cmid.'" />'; // Menyimpan cmid untuk digunakan oleh JavaScript
+echo '</div>';
+
+echo '<input type="hidden" id="cmid" value="'.$cmid.'" />';
+echo '<input type="hidden" id="courseid" value="'.$course->id.'" />';
 
 echo '<script>
         const getGroupMembersUrl = "'.$CFG->wwwroot.'/mod/pjblsinawang/ajax_load_members.php";
-        const showSintaksFormUrl = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_1.php";
+        const showSintaksFormUrl1 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_1.php";
+        const showSintaksFormUrl2 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_2.php";
+        const showSintaksFormUrl3 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_3.php";
+        const submitSintaksFormUrl1 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_1.php";
+        const submitSintaksFormUrl2 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_2.php";
+        const submitSintaksFormUrl3 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_3.php";
       </script>';
 
 echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
