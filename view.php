@@ -78,6 +78,8 @@ echo '<script>
       </script>';
 
 echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
+echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/toast.js"></script>'; // Menambahkan file toast.js yang baru
+
 
 echo $OUTPUT->footer();
 ?>

@@ -18,3 +18,28 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.toast-container {
+    width: 100%;  /* Sesuaikan dengan lebar form atau kontainer */
+    position: relative;  /* Menggunakan relative agar toast muncul di dalam form */
+    top: 20px;  /* Sesuaikan jarak dengan elemen di atasnya */
+}
+
+/* CSS untuk toast yang tampil */
+.toast {
+    position: relative;
+    z-index: 9999;
+    background-color: #28a745;  /* Contoh background hijau untuk toast sukses */
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* Tambahan untuk animasi toast hilang setelah beberapa detik */
+.toast.hide {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}

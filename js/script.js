@@ -1,10 +1,13 @@
 document.getElementById('showMembers').addEventListener('click', function() {
     var groupId = document.getElementById('groupSelect').value;
     if (groupId !== 'Select a Group') {
+        // Menutup form Sintaks yang terbuka sebelum menampilkan anggota
+        document.getElementById('formSintaks').style.display = 'none';
+        
         var membersList = document.getElementById('membersList');
         membersList.innerHTML = '<div class="d-flex justify-content-center"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>';
         membersList.style.display = 'block';
-        
+
         fetch(getGroupMembersUrl + '?groupid=' + groupId)
         .then(response => response.json())
         .then(data => {
@@ -16,6 +19,7 @@ document.getElementById('showMembers').addEventListener('click', function() {
                 list += '</ul>';
                 membersList.innerHTML = list;
                 
+                // Menampilkan tombol Sintaks setelah anggota berhasil dimuat
                 document.getElementById('showSintaksBtns').style.display = 'block';
             } else {
                 membersList.innerHTML = '<p>No members found.</p>';
@@ -70,45 +74,59 @@ function loadSintaksForm(sintaksNumber) {
     formDiv.style.display = 'block';
 }
 
-// Fungsi untuk submit form Sintaks 1, 2, 3
 function submitSintaksForm(sintaksNumber) {
-    var form = document.getElementById('formSintaks1Submit');
+    var form = document.getElementById('formSintaks' + sintaksNumber + 'Submit'); // Menyesuaikan ID form berdasarkan sintaksNumber
     var formData = new FormData(form);
     var submitButton = form.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
+    submitButton.disabled = true;  // Menonaktifkan tombol submit untuk mencegah klik ganda
 
-    var submitUrl = '';
+    var submitUrl = '';  // Menentukan URL pengiriman berdasarkan nomor sintaks
 
     if (sintaksNumber === 1) {
-        submitUrl = submitSintaksFormUrl1;
+        submitUrl = submitSintaksFormUrl1;  // URL untuk Sintaks 1
     } else if (sintaksNumber === 2) {
-        submitUrl = submitSintaksFormUrl2;
+        submitUrl = submitSintaksFormUrl2;  // URL untuk Sintaks 2
     } else if (sintaksNumber === 3) {
-        submitUrl = submitSintaksFormUrl3;
+        submitUrl = submitSintaksFormUrl3;  // URL untuk Sintaks 3
     }
 
-    var loadingMessage = document.createElement('div');
-    loadingMessage.classList.add('d-flex', 'justify-content-center');
-    loadingMessage.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="sr-only">Submitting...</span></div>';
-    form.appendChild(loadingMessage);
-
+    // Mengirim data ke server menggunakan fetch (AJAX)
     fetch(submitUrl, {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => response.json())  // Mengharapkan respons JSON dari server
     .then(data => {
         if (data.success) {
-            alert('Form submitted successfully!');
+            // Menampilkan toast jika submit berhasil
+            showToast('Form submitted successfully!', 'success');
         } else {
-            alert('Error submitting form.');
+            // Menampilkan toast jika terjadi error
+            showToast('Error submitting form.', 'danger');
         }
-        submitButton.disabled = false;
-        loadingMessage.remove();
+        submitButton.disabled = false;  // Mengaktifkan kembali tombol submit
     })
     .catch(error => {
-        alert('Error submitting form.');
+        // Menangani kesalahan jaringan atau lainnya
+        showToast('Error submitting form.', 'danger');
         submitButton.disabled = false;
-        loadingMessage.remove();
     });
+}
+
+function showToast(message) {
+    var toastContainer = document.getElementById('toastContainer');
+    
+    var toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.innerText = message;
+    
+    toastContainer.appendChild(toast);
+
+    // Toast hilang setelah beberapa detik
+    setTimeout(function() {
+        toast.classList.add('hide');
+        setTimeout(function() {
+            toast.remove();  // Menghapus toast setelah animasi selesai
+        }, 500);
+    }, 3000);  // Toast muncul selama 3 detik
 }
