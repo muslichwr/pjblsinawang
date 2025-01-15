@@ -31,6 +31,21 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
             </KEYS>
         </TABLE>
+                <TABLE NAME="pjblsinawang_sintaks_dua" COMMENT="Table to store sintaks 2 for pjblsinawang activities (project planning)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="project_title" TYPE="varchar" LENGTH="255" NOTNULL="true" COMMENT="Project Title"/>
+                <FIELD NAME="project_schedule" TYPE="text" NOTNULL="false" COMMENT="Schedule or timeline for the project"/>
+                <FIELD NAME="tasks" TYPE="text" NOTNULL="false" COMMENT="Tasks for the group members (stored as JSON or structured text)"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status of the project"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
         <!-- <TABLE NAME="pjbl_sinawang_tasks" COMMENT="Table to store tasks for pjbl_sinawang">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
