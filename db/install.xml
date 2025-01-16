@@ -32,14 +32,121 @@
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
             </KEYS>
         </TABLE>
-                <TABLE NAME="pjblsinawang_sintaks_dua" COMMENT="Table to store sintaks 2 for pjblsinawang activities (project planning)">
+        <TABLE NAME="pjblsinawang_sintaks_dua" COMMENT="Table for Sintaks 2 (Menyusun Rencana Proyek - Jadwal)">
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
                 <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
-                <FIELD NAME="project_title" TYPE="varchar" LENGTH="255" NOTNULL="true" COMMENT="Project Title"/>
+                <FIELD NAME="project_name" TYPE="text" NOTNULL="false" COMMENT="Nama proyek"/>
+                <FIELD NAME="start_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Tanggal mulai proyek"/>
+                <FIELD NAME="end_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Tanggal selesai proyek"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status proyek (completed, in-progress, incomplete)"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_tiga" COMMENT="Table for Sintaks 3 (Membuat Jadwal Proyek)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="task_name" TYPE="text" NOTNULL="false" COMMENT="Nama tugas"/>
+                <FIELD NAME="assigned_to" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Siswa yang diberi tugas"/>
+                <FIELD NAME="due_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Tanggal batas waktu tugas"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status tugas (completed, in-progress, incomplete)"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_empat" COMMENT="Table for Sintaks 4 (Monitoring Pelaksanaan)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status penyelesaian tugas (completed, in-progress, incomplete)"/>
+                <FIELD NAME="file_empat_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the uploaded file in pjblsinawang_sintaks_empat"/>
+                <FIELD NAME="comments" TYPE="text" NOTNULL="false" COMMENT="Komentar guru"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_lima" COMMENT="Table for Sintaks 5 (Pengumpulan Proyek)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="file_proyek_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the project file"/>
+                <FIELD NAME="file_laporan_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the report file"/>
+                <FIELD NAME="project_submission_date" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Tanggal pengumpulan proyek"/>
+                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status pengumpulan (submitted, late, incomplete)"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_enam" COMMENT="Table for Sintaks 6 (Presentasi Proyek)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="presentation_date" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Tanggal dan waktu presentasi"/>
+                <FIELD NAME="presenter" TYPE="text" NOTNULL="false" COMMENT="Nama presenter dari kelompok"/>
+                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Komentar dan feedback dari guru"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_tujuh" COMMENT="Table for Sintaks 7 (Penilaian dan Evaluasi)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="evaluation_date" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Tanggal evaluasi proyek"/>
+                <FIELD NAME="evaluation_result" TYPE="text" NOTNULL="false" COMMENT="Hasil evaluasi proyek"/>
+                <FIELD NAME="revisions_required" TYPE="text" NOTNULL="false" COMMENT="Rekomendasi revisi untuk proyek"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="pjblsinawang_sintaks_delapan" COMMENT="Table for Sintaks 8 (Refleksi Pembelajaran)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="reflection_date" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Tanggal refleksi"/>
+                <FIELD NAME="reflection_notes" TYPE="text" NOTNULL="false" COMMENT="Catatan refleksi mengenai pembelajaran dan proyek"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
+            </KEYS>
+        </TABLE>
+                <!-- <TABLE NAME="pjblsinawang_sintaks_dua" COMMENT="Table to store sintaks 2 for pjblsinawang activities (project planning)">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course module ID"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
+                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
+                <FIELD NAME="project_title" TYPE="text" NOTNULL="false" COMMENT="Project Title"/>
                 <FIELD NAME="project_schedule" TYPE="text" NOTNULL="false" COMMENT="Schedule or timeline for the project"/>
                 <FIELD NAME="tasks" TYPE="text" NOTNULL="false" COMMENT="Tasks for the group members (stored as JSON or structured text)"/>
                 <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status of the project"/>
@@ -56,10 +163,10 @@
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
                 <FIELD NAME="task_description" TYPE="text" NOTNULL="true" COMMENT="Task description for the individual student"/>
-                <FIELD NAME="assigned_date" TYPE="bigint" LENGTH="20" NOTNULL="true" COMMENT="Timestamp when the task is assigned"/>
-                <FIELD NAME="due_date" TYPE="bigint" LENGTH="20" NOTNULL="true" COMMENT="Timestamp for the due date of the task"/>
+                <FIELD NAME="assigned_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task is assigned"/>
+                <FIELD NAME="due_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp for the due date of the task"/>
                 <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Task status (incomplete, in progress, completed, overdue)"/>
-                <FIELD NAME="completion_date" TYPE="bigint" LENGTH="20" NOTNULL="false" COMMENT="Timestamp when the task is completed"/>
+                <FIELD NAME="completion_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task is completed"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
@@ -72,10 +179,10 @@
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
-                <FIELD NAME="task_name" TYPE="varchar" LENGTH="255" NOTNULL="true" COMMENT="Task name for the individual student"/>
+                <FIELD NAME="task_name" TYPE="text" NOTNULL="false" COMMENT="Task name for the individual student"/>
                 <FIELD NAME="task_status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Task status (incomplete, in progress, completed)"/>
                 <FIELD NAME="teacher_comment" TYPE="text" NOTNULL="false" COMMENT="Teacher's comment on the task"/>
-                <FIELD NAME="update_time" TYPE="bigint" LENGTH="20" NOTNULL="false" COMMENT="Last update timestamp"/>
+                <FIELD NAME="update_time" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Last update timestamp"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
@@ -88,10 +195,10 @@
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
-                <FIELD NAME="submission_time" TYPE="bigint" NOTNULL="false" COMMENT="Timestamp of the submission"/>
-                <FIELD NAME="is_on_time" TYPE="boolean" NOTNULL="true" DEFAULT="true" COMMENT="Indicates if the submission was on time"/>
-                <FIELD NAME="teacher_reminder" TYPE="boolean" NOTNULL="true" DEFAULT="false" COMMENT="Indicates if a reminder has been sent by the teacher"/>
-                <FIELD NAME="submission_file" TYPE="varchar" LENGTH="255" NOTNULL="false" COMMENT="File name of the submitted file"/>
+                <FIELD NAME="submission_time" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp of the submission"/>
+                <FIELD NAME="is_on_time" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="yes" COMMENT="Indicates if the submission was on time (yes/no)"/>
+                <FIELD NAME="teacher_reminder" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="no" COMMENT="Indicates if a reminder has been sent by the teacher (yes/no)"/>
+                <FIELD NAME="submission_file" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="moodle submitted file"/>
                 <FIELD NAME="teacher_feedback" TYPE="text" NOTNULL="false" COMMENT="Teacher's feedback on the submission"/>
                 <FIELD NAME="submission_status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending" COMMENT="Submission status (submitted, pending, late)"/>
             </FIELDS>
@@ -106,11 +213,11 @@
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
-                <FIELD NAME="presentation_date" TYPE="bigint" NOTNULL="false"  COMMENT="Timestamp of the presentation"/>
+                <FIELD NAME="presentation_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp of the presentation"/>
                 <FIELD NAME="presentation_status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending" COMMENT="Presentation status (pending, completed)"/>
-                <FIELD NAME="feedback_received" TYPE="boolean" NOTNULL="true" DEFAULT="false" COMMENT="Indicates if feedback has been received"/>
+                <FIELD NAME="feedback_received" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="no" COMMENT="Indicates if feedback has been received (yes/no)"/>
                 <FIELD NAME="teacher_feedback" TYPE="text" NOTNULL="false" COMMENT="Teacher's feedback on the presentation"/>
-                <FIELD NAME="presentation_video_url" TYPE="varchar" LENGTH="255" NOTNULL="false" COMMENT="URL of the presentation video (optional)"/>
+                <FIELD NAME="presentation_video_url" TYPE="text" NOTNULL="false" COMMENT="URL of the presentation video (optional)"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
@@ -123,10 +230,10 @@
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Course ID"/>
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
-                <FIELD NAME="evaluation_score" TYPE="decimal" LENGTH="5,2" NOTNULL="false" COMMENT="Evaluation score (e.g., 85.50)"/>
+                <FIELD NAME="evaluation_score" TYPE="float" NOTNULL="false" COMMENT="Evaluation score (e.g., 85.50)"/>
                 <FIELD NAME="evaluation_comments" TYPE="text" NOTNULL="false" COMMENT="Evaluation comments by the teacher"/>
-                <FIELD NAME="revision_required" TYPE="boolean" NOTNULL="true" DEFAULT="false" COMMENT="Indicates if revision is required"/>
-                <FIELD NAME="evaluation_date" TYPE="bigint" NOTNULL="false" COMMENT="Timestamp when the evaluation was made"/>
+                <FIELD NAME="revision_required" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="no" COMMENT="Indicates if revision is required (yes/no)"/>
+                <FIELD NAME="evaluation_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the evaluation was made"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
@@ -142,138 +249,7 @@
                 <FIELD NAME="reflection_status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="pending" COMMENT="Reflection status (completed, pending)"/>
                 <FIELD NAME="reflection_text" TYPE="text" NOTNULL="false" COMMENT="Reflection text written by the student"/>
                 <FIELD NAME="teacher_remarks" TYPE="text" NOTNULL="false" COMMENT="Teacher's remarks on the reflection"/>
-                <FIELD NAME="reflection_date" TYPE="bigint" NOTNULL="false" COMMENT="Timestamp when the reflection was made"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <!-- <TABLE NAME="pjbl_sinawang_tasks" COMMENT="Table to store tasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="User ID, NULL if task is for a group"/>
-                <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="Group ID, NULL if task is for an individual"/>
-                <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Title of the task"/>
-                <FIELD NAME="description" TYPE="text" NOTNULL="true" COMMENT="Description of the task"/>
-                <FIELD NAME="status_planning" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on planning page"/>
-                <FIELD NAME="status_scheduling" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on scheduling page"/>
-                <FIELD NAME="status_execution" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status on execution page"/>
-                <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Due date of the task"/>
-                <FIELD NAME="grade" TYPE="float" NOTNULL="false" DEFAULT="0" COMMENT="Grade for the task"/>
-                <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task was created"/>
-                <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the task was last updated"/>
-                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Course Module ID"/>
-                <FIELD NAME="revision_requested" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="1 if revision requested, 0 otherwise"/>
-                <FIELD NAME="new_status" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="NULL" COMMENT="New status requested by the student"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_subtasks" COMMENT="Table to store subtasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="taskid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Task ID"/>
-                <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Title of the subtask"/>
-                <FIELD NAME="description" TYPE="text" NOTNULL="true" COMMENT="Description of the subtask"/>
-                <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="To Do" COMMENT="Status of the subtask"/>
-                <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Due date of the subtask"/>
-                <FIELD NAME="is_completed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Subtask completion status"/>
-                <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the subtask was created"/>
-                <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the subtask was last updated"/>
-                <FIELD NAME="cmid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Course Module ID"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-                <KEY NAME="taskid_fk" TYPE="foreign" FIELDS="taskid" REFTABLE="pjbl_sinawang_tasks" REFFIELDS="id" ONDELETE="cascade" COMMENT="Foreign key referencing pjbl_sinawang_tasks(id)"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_satu" COMMENT="Table to store tasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="orientasi" TYPE="text" NOTNULL="false" COMMENT="Orientasi masalah text"/>
-                <FIELD NAME="analisis" TYPE="text" NOTNULL="false" COMMENT="Analisis text"/>
-                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
-                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_dua" COMMENT="Table to store tasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="indikator" TYPE="text" NOTNULL="false" COMMENT="Indikator masalah text"/>
-                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
-                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
-                <FIELD NAME="indikator_masalah" TYPE="text" NOTNULL="false" COMMENT="Indikator masalah masalah terbaru text"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_tigaplus" COMMENT="Table to store tasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="rancangan_program" TYPE="text" NOTNULL="false" COMMENT="Rancangan Program masalah text"/>
-                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
-                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_tiga" COMMENT="Table to store tasks for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="file_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the uploaded file"/>
-                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
-                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status text"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_lima" COMMENT="Table to store project and report file data for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="file_proyek_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the project file"/>
-                <FIELD NAME="file_laporan_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the report file"/>
-                <FIELD NAME="link" TYPE="text" NOTNULL="false" COMMENT="Link for additional information"/>
-                <FIELD NAME="status" TYPE="text" NOTNULL="false" COMMENT="Status of the project or report"/>
-            </FIELDS>
-            <KEYS>
-                <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
-            </KEYS>
-        </TABLE>
-        <TABLE NAME="pjbl_sinawang_enam" COMMENT="Table to store evaluation scores and feedback for pjbl_sinawang">
-            <FIELDS>
-                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
-                <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the student"/>
-                <FIELD NAME="group_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the group"/>
-                <FIELD NAME="course_id" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="ID of the course"/>
-                <FIELD NAME="feedback" TYPE="text" NOTNULL="false" COMMENT="Feedback text"/>
-                <FIELD NAME="class_object" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Class and Object"/>
-                <FIELD NAME="encapsulation" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Encapsulation"/>
-                <FIELD NAME="inheritance" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Inheritance"/>
-                <FIELD NAME="logic_function" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Function and Logic"/>
-                <FIELD NAME="project_report" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Score for Project Report"/>
-                <FIELD NAME="total_score" TYPE="int" LENGTH="2" NOTNULL="false" COMMENT="Total score for the student"/>
+                <FIELD NAME="reflection_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Timestamp when the reflection was made"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key"/>
