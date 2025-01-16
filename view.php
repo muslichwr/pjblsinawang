@@ -51,6 +51,11 @@ if ($is_teacher) {
 }
 
 echo '<button id="showMembers" class="btn btn-primary mb-3">Show Members</button>';
+echo '<br>';
+
+if ($is_teacher) {
+    echo '<a href="'.$CFG->wwwroot.'/mod/pjblsinawang/post_orientasi_form.php?id='.$cmid.'" class="btn btn-info">Post Orientasi Masalah</a>';
+}
 
 echo '<div id="membersList" class="mt-3" style="display:none;"></div>';
 

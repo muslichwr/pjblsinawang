@@ -26,8 +26,7 @@ echo '<br>';
 echo '<form id="formSintaks1Submit" method="POST" action="javascript:void(0)">
         <input type="hidden" name="cmid" value="'.$cmid.'" />
         <input type="hidden" name="groupid" value="'.$groupid.'" />
-        <input type="hidden" name="courseid" value="'.$courseid.'" />
-        <input type="hidden" name="userid" value="'.$USER->id.'" />';  // Menyimpan ID pengguna yang mengirimkan data
+        <input type="hidden" name="courseid" value="'.$courseid.'" />';  // Menyimpan ID Course
 
 // Menambahkan JavaScript untuk mengunci form jika status sudah 'ready_for_next'
 if ($form_locked) {

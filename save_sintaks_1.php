@@ -12,21 +12,15 @@ $indikator = required_param('indikator', PARAM_TEXT);
 $analisis = required_param('analisis', PARAM_TEXT);
 $status = optional_param('status', 'incomplete', PARAM_TEXT);
 $feedback = optional_param('feedback', '', PARAM_TEXT);
-$userid = required_param('userid', PARAM_INT);
+$userid = $USER->id;  // Mendapatkan ID pengguna yang sedang login
 
-// Cek apakah sudah ada data
+// Cek apakah sudah ada data sintaks sebelumnya untuk kelompok ini
 $sql = "SELECT * FROM {pjblsinawang_sintaks_satu}
         WHERE cmid = :cmid AND groupid = :groupid AND courseid = :courseid";
 $params = ['cmid' => $cmid, 'groupid' => $groupid, 'courseid' => $courseid];
 $existing_data = $DB->get_record_sql($sql, $params);
 
 if ($existing_data) {
-    // Jika status sudah ready_for_next, pastikan siswa tidak bisa mengubah data
-    if ($existing_data->status == 'ready_for_next') {
-        echo json_encode(['success' => false, 'message' => 'Form ini sudah siap untuk tahap berikutnya dan tidak bisa diubah.']);
-        exit;
-    }
-
     // Update data jika sudah ada
     $existing_data->orientasi_masalah = $orientasi_masalah;
     $existing_data->rumusan_masalah = $rumusan_masalah;
@@ -34,7 +28,7 @@ if ($existing_data) {
     $existing_data->analisis = $analisis;
     $existing_data->status = $status;  // Update status
     $existing_data->feedback = $feedback;  // Update feedback
-    $existing_data->userid = $userid;  // Menyimpan ID pengguna yang mengirimkan data
+    $existing_data->userid = $userid;  // Menyimpan ID pengguna yang terakhir mengubah data
     
     $DB->update_record('pjblsinawang_sintaks_satu', $existing_data);
 } else {
@@ -49,7 +43,7 @@ if ($existing_data) {
     $record->analisis = $analisis;
     $record->status = $status;
     $record->feedback = $feedback;
-    $record->userid = $userid;  // Menyimpan ID pengguna yang mengirimkan data
+    $record->userid = $userid;  // Menyimpan ID pengguna yang pertama kali mengirimkan data
     
     $DB->insert_record('pjblsinawang_sintaks_satu', $record);
 }
