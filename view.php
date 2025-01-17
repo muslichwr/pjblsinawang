@@ -77,13 +77,22 @@ echo '<script>
         const showSintaksFormUrl1 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_1.php";
         const showSintaksFormUrl2 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_2.php";
         const showSintaksFormUrl3 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_3.php";
+        const showSintaksFormUrl4 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_4.php";
+        const showSintaksFormUrl5 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_5.php";
+        const showSintaksFormUrl6 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_6.php";
+        const showSintaksFormUrl7 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_7.php";
+        const showSintaksFormUrl8 = "'.$CFG->wwwroot.'/mod/pjblsinawang/form_sintaks_8.php";
         const submitSintaksFormUrl1 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_1.php";
         const submitSintaksFormUrl2 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_2.php";
         const submitSintaksFormUrl3 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_3.php";
+        const submitSintaksFormUrl4 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_4.php";
+        const submitSintaksFormUrl5 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_5.php";
+        const submitSintaksFormUrl6 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_6.php";
+        const submitSintaksFormUrl7 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_7.php";
+        const submitSintaksFormUrl8 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_8.php";
       </script>';
 
-echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
-echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/toast.js"></script>'; // Menambahkan file toast.js yang baru
+echo '<script type="module" src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
 
 
 echo $OUTPUT->footer();
