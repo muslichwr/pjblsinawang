@@ -33,7 +33,7 @@ echo '<div id="contentArea">'; // Div untuk konten yang dinamis
 
 if ($is_teacher) {
     // Dropdown untuk memilih grup bagi guru
-    echo '<select id="groupSelect" class="form-select mb-3">
+    echo '<select id="groupSelect" class="form-select mb-3 col-3">
             <option>Select a Group</option>';
     foreach ($groups as $group) {
         echo '<option value="'.$group->id.'">'.$group->name.'</option>';
@@ -50,7 +50,7 @@ if ($is_teacher) {
     }
 }
 
-echo '<button id="showMembers" class="btn btn-primary mb-3">Show Members</button>';
+echo '<button id="showMembers" class="btn btn-primary mb-3">Pilih</button>';
 echo '<br>';
 
 if ($is_teacher) {

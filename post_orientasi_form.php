@@ -22,17 +22,22 @@ echo $OUTPUT->header();
 
 // Hanya tampilkan form untuk guru
 if ($is_teacher) {
-    // Cek apakah orientasi masalah sudah ada untuk grup tertentu
-    $existing_orientasi = null;
-
     echo '<h3>Post Orientasi Masalah</h3>';
+
+    // Cek apakah sudah ada orientasi masalah yang tersimpan
+    $existing_orientasi = $DB->get_record('pjblsinawang_sintaks_satu', array('cmid' => $cmid), '*', IGNORE_MISSING);
+
+    // Jika ada data, tampilkan orientasi masalah yang sudah ada
+    $orientasi_masalah_value = $existing_orientasi ? $existing_orientasi->orientasi_masalah : '';
+
     echo '<form action="post_orientasi.php" method="POST">
             <div class="form-group">
                 <label for="orientasi_masalah">Orientasi Masalah</label>
-                <textarea id="orientasi_masalah" name="orientasi_masalah" class="form-control" rows="4"></textarea>
+                <textarea id="orientasi_masalah" name="orientasi_masalah" class="form-control" rows="4">' . $orientasi_masalah_value . '</textarea>
             </div>
             <input type="hidden" name="cmid" value="' . $cmid . '" />
             <button type="submit" class="btn btn-primary mt-3">Post Orientasi</button>
+            <button href="view.php?id=<?php echo $cmid; ?>" class="btn btn-secondary mt-3">Kembali</button>
           </form>';
 } else {
     echo '<p>You are not authorized to post an orientasi masalah.</p>';

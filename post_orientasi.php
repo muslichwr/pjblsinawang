@@ -51,8 +51,12 @@ if ($groups) {
         }
     }
 
+    // Jika data berhasil disimpan, redirect kembali ke halaman view.php
     echo json_encode(['success' => true, 'message' => 'Orientasi masalah posted or updated successfully.']);
+    redirect(new moodle_url('/mod/pjblsinawang/view.php', array('id' => $cmid)), 'Data berhasil disimpan. Anda akan dialihkan ke halaman utama.', 5);
 } else {
+    // Jika tidak ada grup ditemukan, tampilkan pesan dan redirect kembali ke view.php
     echo json_encode(['success' => false, 'message' => 'No groups found for the selected course.']);
+    redirect(new moodle_url('/mod/pjblsinawang/view.php', array('id' => $cmid)), 'Tidak ada grup yang ditemukan, Anda akan dialihkan ke halaman utama.', 5);
 }
 ?>

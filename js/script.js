@@ -95,38 +95,36 @@ function submitSintaksForm(sintaksNumber) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())  // Mengharapkan respons JSON dari server
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Menampilkan toast jika submit berhasil
-            showToast('Form submitted successfully!', 'success');
+            showNotification('Form submitted successfully!', 'success');
         } else {
-            // Menampilkan toast jika terjadi error
-            showToast('Error submitting form.', 'danger');
+            showNotification('Error submitting form.', 'danger');
         }
-        submitButton.disabled = false;  // Mengaktifkan kembali tombol submit
+        submitButton.disabled = false;
     })
     .catch(error => {
-        // Menangani kesalahan jaringan atau lainnya
-        showToast('Error submitting form.', 'danger');
+        showNotification('Error submitting form.', 'danger');
         submitButton.disabled = false;
     });
 }
 
-function showToast(message) {
-    var toastContainer = document.getElementById('toastContainer');
+function showNotification(message, type) {
+    var notificationContainer = document.getElementById('notificationContainer');
     
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.innerText = message;
+    // Membuat elemen div untuk pesan
+    var notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.classList.add('alert');
+    notification.classList.add('alert-' + type); // Sesuaikan dengan tipe ('success', 'danger', dll.)
+    notification.innerText = message;
     
-    toastContainer.appendChild(toast);
-
-    // Toast hilang setelah beberapa detik
+    // Menambahkan ke container
+    notificationContainer.appendChild(notification);
+    
+    // Otomatis menghilangkan pesan setelah 3 detik
     setTimeout(function() {
-        toast.classList.add('hide');
-        setTimeout(function() {
-            toast.remove();  // Menghapus toast setelah animasi selesai
-        }, 500);
-    }, 3000);  // Toast muncul selama 3 detik
+        notification.remove();
+    }, 3000); // Hapus setelah 3 detik
 }
