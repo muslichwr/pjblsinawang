@@ -28,6 +28,8 @@ echo '<form id="formSintaks2Submit" method="POST" action="javascript:void(0)">
         <input type="hidden" name="groupid" value="'.$groupid.'" />
         <input type="hidden" name="courseid" value="'.$courseid.'" />';  // Menyimpan ID Course
 
+echo '<div id="notificationContainer"></div>';
+
 // Menambahkan JavaScript untuk mengunci form jika status sudah 'completed' untuk siswa
 if ($form_locked_for_students) {
     echo '<script>

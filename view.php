@@ -1,6 +1,7 @@
 <?php
 require_once('../../config.php');
 require_once($CFG->dirroot.'/lib/grouplib.php');
+require_once($CFG->libdir . '/filelib.php');
 require_login();
 
 $cmid = required_param('id', PARAM_INT);
@@ -63,6 +64,11 @@ echo '<div id="showSintaksBtns" style="display:none;">
         <button id="showSintaks1" class="btn btn-secondary mt-3">Sintaks 1</button>
         <button id="showSintaks2" class="btn btn-secondary mt-3">Sintaks 2</button>
         <button id="showSintaks3" class="btn btn-secondary mt-3">Sintaks 3</button>
+        <button id="showSintaks4" class="btn btn-secondary mt-3">Sintaks 4</button>
+        <button id="showSintaks5" class="btn btn-secondary mt-3">Sintaks 5</button>
+        <button id="showSintaks6" class="btn btn-secondary mt-3">Sintaks 6</button>
+        <button id="showSintaks7" class="btn btn-secondary mt-3">Sintaks 7</button>
+        <button id="showSintaks8" class="btn btn-secondary mt-3">Sintaks 8</button>
       </div>';
 
 echo '<div id="formSintaks" style="display:none;"></div>';
@@ -92,7 +98,7 @@ echo '<script>
         const submitSintaksFormUrl8 = "'.$CFG->wwwroot.'/mod/pjblsinawang/save_sintaks_8.php";
       </script>';
 
-echo '<script type="module" src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
+echo '<script src="'.$CFG->wwwroot.'/mod/pjblsinawang/js/script.js"></script>';
 
 
 echo $OUTPUT->footer();

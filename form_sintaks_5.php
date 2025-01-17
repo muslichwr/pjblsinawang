@@ -1,12 +1,14 @@
 <?php
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/pjblsinawang/lib.php');
-require_login();
+require_once($CFG->libdir . '/filelib.php');
 
+require_login();
 $cmid = required_param('cmid', PARAM_INT);
 $groupid = required_param('groupid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);
 
+$context = context_module::instance($cmid);
 // Cek apakah pengguna adalah guru
 $is_teacher = has_capability('moodle/course:manageactivities', context_course::instance($courseid));
 
@@ -73,33 +75,77 @@ echo '</div>';
 // Field: Unggah File Proyek
 echo '<div class="mb-3">
         <label for="file_proyek" class="form-label">Unggah File Proyek</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="file" id="file_proyek" name="file_proyek" class="form-control">';
-            if ($existing_data && $existing_data->file_proyek_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_proyek_id.'" target="_blank">Lihat File</a></small>';
-            }
-        } else {
-            echo '<input type="file" id="file_proyek" name="file_proyek" class="form-control" disabled>';
-            if ($existing_data && $existing_data->file_proyek_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_proyek_id.'" target="_blank">Lihat File</a></small>';
-            }
+
+// Ambil draft item ID yang sudah diajukan untuk file proyek
+$draft_item_id_proyek = file_get_submitted_draft_itemid('file_proyek');
+
+// Siapkan draft area untuk file proyek
+file_prepare_draft_area($draft_item_id_proyek, context_module::instance($cmid)->id, 'mod_pjblsinawang', 'file_pjblsinawang_lima_proyek', 0, array('subdirs' => 0));
+
+if ($is_teacher || !$form_locked_for_students) {
+    echo '<input type="file" id="file_proyek" name="file_proyek" class="form-control" data-draft-item-id="'.$draft_item_id_proyek.'">';
+
+    if ($existing_data && $existing_data->file_proyek_id) {
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_proyek_id);
+        if ($file) {
+            $filename = $file->get_filename();
+            $file_item_id = $file->get_itemid();
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_lima_proyek/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
         }
+    }
+} else {
+    echo '<input type="file" id="file_proyek" name="file_proyek" class="form-control" disabled>';
+    if ($existing_data && $existing_data->file_proyek_id) {
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_proyek_id);
+        if ($file) {
+            $filename = $file->get_filename();
+            $file_item_id = $file->get_itemid();
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_lima_proyek/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
+        }
+    }
+}
 echo '</div>';
 
 // Field: Unggah File Laporan
 echo '<div class="mb-3">
         <label for="file_laporan" class="form-label">Unggah File Laporan</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="file" id="file_laporan" name="file_laporan" class="form-control">';
-            if ($existing_data && $existing_data->file_laporan_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_laporan_id.'" target="_blank">Lihat File</a></small>';
-            }
-        } else {
-            echo '<input type="file" id="file_laporan" name="file_laporan" class="form-control" disabled>';
-            if ($existing_data && $existing_data->file_laporan_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_laporan_id.'" target="_blank">Lihat File</a></small>';
-            }
+
+// Ambil draft item ID yang sudah diajukan untuk file laporan
+$draft_item_id_laporan = file_get_submitted_draft_itemid('file_laporan');
+
+// Siapkan draft area untuk file laporan
+file_prepare_draft_area($draft_item_id_laporan, context_module::instance($cmid)->id, 'mod_pjblsinawang', 'file_pjblsinawang_lima_laporan', 0, array('subdirs' => 0));
+
+if ($is_teacher || !$form_locked_for_students) {
+    echo '<input type="file" id="file_laporan" name="file_laporan" class="form-control" data-draft-item-id="'.$draft_item_id_laporan.'">';
+
+    if ($existing_data && $existing_data->file_laporan_id) {
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_laporan_id);
+        if ($file) {
+            $filename = $file->get_filename();
+            $file_item_id = $file->get_itemid();
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_lima_laporan/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
         }
+    }
+} else {
+    echo '<input type="file" id="file_laporan" name="file_laporan" class="form-control" disabled>';
+    if ($existing_data && $existing_data->file_laporan_id) {
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_laporan_id);
+        if ($file) {
+            $filename = $file->get_filename();
+            $file_item_id = $file->get_itemid();
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_lima_laporan/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
+        }
+    }
+}
 echo '</div>';
 
 echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(5)">Submit</button>

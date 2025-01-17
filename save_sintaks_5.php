@@ -18,7 +18,7 @@ if (!empty($_FILES['file_proyek']['name'])) {
     $file_record = array(
         'contextid' => $context->id,
         'component' => 'mod_pjblsinawang',
-        'filearea' => 'sintaks_lima',
+        'filearea' => 'file_pjblsinawang_lima_proyek',
         'itemid' => 0, // ID item (untuk file yang tidak terkait dengan entitas tertentu)
         'filepath' => '/',
         'filename' => $_FILES['file_proyek']['name']
@@ -36,7 +36,7 @@ if (!empty($_FILES['file_laporan']['name'])) {
     $file_record = array(
         'contextid' => $context->id,
         'component' => 'mod_pjblsinawang',
-        'filearea' => 'sintaks_lima',
+        'filearea' => 'file_pjblsinawang_lima_laporan',
         'itemid' => 0,
         'filepath' => '/',
         'filename' => $_FILES['file_laporan']['name']

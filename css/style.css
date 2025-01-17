@@ -1,26 +1,39 @@
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-.form-label {
-    font-weight: bold;
-}
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-/* .select-kelompok {
-    width: 340px;
-} */
-
 #membersList {
     overflow: hidden;
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#loadingSpinner {
+    display: none; /* Secara default spinner disembunyikan */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Agar spinner tetap di atas konten */
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: .25em;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 .notification {

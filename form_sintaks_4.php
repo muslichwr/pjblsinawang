@@ -1,11 +1,14 @@
 <?php
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/pjblsinawang/lib.php');
-require_login();
+require_once($CFG->libdir . '/filelib.php');
 
+require_login();
 $cmid = required_param('cmid', PARAM_INT);
 $groupid = required_param('groupid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);
+
+$context = context_module::instance($cmid);
 
 // Cek apakah pengguna adalah guru
 $is_teacher = has_capability('moodle/course:manageactivities', context_course::instance($courseid));
@@ -73,17 +76,49 @@ echo '</div>';
 // Field: Unggah File
 echo '<div class="mb-3">
         <label for="file_empat" class="form-label">Unggah File (Opsional)</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="file" id="file_empat" name="file_empat" class="form-control">';
-            if ($existing_data && $existing_data->file_empat_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_empat_id.'" target="_blank">Lihat File</a></small>';
-            }
-        } else {
-            echo '<input type="file" id="file_empat" name="file_empat" class="form-control" disabled>';
-            if ($existing_data && $existing_data->file_empat_id) {
-                echo '<small>File yang sudah diunggah: <a href="'.$CFG->wwwroot.'/pluginfile.php/'.$context->id.'/mod_resource/content/'.$existing_data->file_empat_id.'" target="_blank">Lihat File</a></small>';
-            }
+
+// Ambil draft item ID yang sudah diajukan
+$draft_item_id = file_get_submitted_draft_itemid('file_empat');
+
+// Siapkan draft area untuk file
+file_prepare_draft_area($draft_item_id, context_module::instance($cmid)->id, 'mod_pjblsinawang', 'file_pjblsinawang_empat', 0, array('subdirs' => 0));
+
+if ($is_teacher || !$form_locked_for_students) {
+    // Tampilkan input file dengan draft item ID
+    echo '<input type="file" id="file_empat" name="file_empat" class="form-control" data-draft-item-id="'.$draft_item_id.'">';
+
+    // Jika sudah ada file yang diunggah sebelumnya
+    if ($existing_data && $existing_data->file_empat_id) {
+        // Mengambil file ID yang benar dari tabel mdl_files
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_empat_id);
+
+        if ($file) {
+            $filename = $file->get_filename();  // Mendapatkan nama file
+            $file_item_id = $file->get_itemid(); // Mendapatkan item ID file yang benar
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_empat/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
         }
+    }
+} else {
+    echo '<input type="file" id="file_empat" name="file_empat" class="form-control" disabled>';
+
+    // Jika sudah ada file yang diunggah sebelumnya
+    if ($existing_data && $existing_data->file_empat_id) {
+        // Mengambil file ID yang benar dari tabel mdl_files
+        $fs = get_file_storage();
+        $file = $fs->get_file_by_id($existing_data->file_empat_id);
+
+        if ($file) {
+            $filename = $file->get_filename();  // Mendapatkan nama file
+            $file_item_id = $file->get_itemid(); // Mendapatkan item ID file yang benar
+            $file_url = $CFG->wwwroot . '/pluginfile.php/' . $context->id . '/mod_pjblsinawang/file_pjblsinawang_empat/' . $file_item_id . '/' . $filename;
+            echo '<small>File yang sudah diunggah: <a href="' . $file_url . '" target="_blank">Lihat File</a></small>';
+        }
+    }
+}
+
+
 echo '</div>';
 
 // Field: Komentar Guru

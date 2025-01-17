@@ -5,13 +5,17 @@ require_login();
 
 $groupid = required_param('groupid', PARAM_INT);
 
-// Ambil anggota grup berdasarkan groupid
+// Ambil data anggota grup
 $members = groups_get_members($groupid);
 
-$response = [];
-foreach ($members as $member) {
-    $response[] = ['name' => fullname($member)]; // Mengambil nama lengkap anggota
+// Output data anggota
+$response = array();
+if ($members) {
+    foreach ($members as $member) {
+        $response['members'][] = array('name' => fullname($member));
+    }
+} else {
+    $response['members'] = array();
 }
 
-header('Content-Type: application/json');
 echo json_encode($response);
