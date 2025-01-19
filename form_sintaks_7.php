@@ -36,6 +36,10 @@ if ($form_locked_for_students) {
             document.getElementById("revisions_required").setAttribute("disabled", true);
             document.querySelector("button[type=submit]").setAttribute("disabled", true);
           </script>';
+
+          echo '<div class="alert alert-info mt-3" role="alert">
+          Sintaks 7 sudah dilakukan. Anda tidak dapat mengubah data lagi.
+          </div>';
 }
 
 echo '<div id="notificationContainer"></div>';
@@ -82,6 +86,9 @@ echo '<div class="mb-3">
         }
 echo '</div>';
 
-echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(7)">Submit</button>
-    </form>';
+if (!$form_locked_for_students) {
+    echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(7)">Submit</button>';
+}
+
+echo '</form>';
 ?>

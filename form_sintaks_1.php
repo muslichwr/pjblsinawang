@@ -20,7 +20,7 @@ $existing_data = $DB->get_record_sql($sql, $params);
 $form_locked = ($existing_data && $existing_data->status == 'ready_for_next' && !$is_teacher);
 
 echo '<br>';
-echo '<h3>Form Sintaks 1</h3>';
+echo '<h3>Form Sintaks 1 - Orientasi Masalah</h3>';
 echo '<br>';
 
 echo '<form id="formSintaks1Submit" method="POST" action="javascript:void(0)">

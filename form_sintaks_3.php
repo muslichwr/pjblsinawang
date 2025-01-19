@@ -31,56 +31,47 @@ echo '<form id="formSintaks3Submit" method="POST" action="javascript:void(0)">
 // Menambahkan JavaScript untuk mengunci form jika status sudah 'completed' untuk siswa
 if ($form_locked_for_students) {
     echo '<script>
-            document.getElementById("task_name").setAttribute("readonly", true);
-            document.getElementById("assigned_to").setAttribute("disabled", true);
-            document.getElementById("due_date").setAttribute("readonly", true);
-            document.getElementById("status").setAttribute("disabled", true);
+            document.querySelectorAll("[id^=\'task_name_\']").forEach(function(input) {
+                input.setAttribute("readonly", true);
+            });
             document.querySelector("button[type=submit]").setAttribute("disabled", true);
           </script>';
+
+    // Menambahkan pesan HTML jika form sudah divalidasi
+    echo '<div class="alert alert-info mt-3" role="alert">
+    Sintaks 3 sudah divalidasi. Anda tidak dapat mengubah data lagi.
+  </div>';
 }
 
 echo '<div id="notificationContainer"></div>';
 
-// Field: Nama Tugas
-echo '<div class="mb-3">
-        <label for="task_name" class="form-label">Nama Tugas</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="text" id="task_name" name="task_name" class="form-control" value="';
-            echo ($existing_data ? $existing_data->task_name : '') . '" />';
-        } else {
-            echo '<input type="text" id="task_name" name="task_name" class="form-control" value="';
-            echo ($existing_data ? $existing_data->task_name : '') . '" readonly />';
-        }
+// Mengambil anggota kelompok menggunakan API Moodle
+$group_members = groups_get_members($groupid); // Mendapatkan anggota berdasarkan groupid
+
+echo '<div id="groupMembersContainer">';
+
+// Menampilkan anggota kelompok
+foreach ($group_members as $member) {
+    // Jika sudah ada data sebelumnya, dekode JSON task_name
+    $existing_task_names = $existing_data ? json_decode($existing_data->task_name, true) : [];
+    $existing_task_name = isset($existing_task_names[$member->id]) ? $existing_task_names[$member->id] : '';  // Ambil tugas berdasarkan ID anggota
+
+    echo '<div class="mb-3">
+            <label for="task_name_' . $member->id . '" class="form-label">Nama Tugas untuk ' . $member->firstname . ' ' . $member->lastname . '</label>';
+    if ($is_teacher || !$form_locked_for_students) {
+        echo '<input type="text" id="task_name_' . $member->id . '" name="task_name_' . $member->id . '" class="form-control" value="' . $existing_task_name . '" />';
+    } else {
+        echo '<input type="text" id="task_name_' . $member->id . '" name="task_name_' . $member->id . '" class="form-control" value="' . $existing_task_name . '" readonly />';
+    }
+    echo '</div>';
+}
+
 echo '</div>';
 
-// Field: Siswa yang diberi tugas
-echo '<div class="mb-3">
-        <label for="assigned_to" class="form-label">Siswa yang Diberi Tugas</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="number" id="assigned_to" name="assigned_to" class="form-control" value="';
-            echo ($existing_data ? $existing_data->assigned_to : '') . '" />';
-        } else {
-            echo '<input type="number" id="assigned_to" name="assigned_to" class="form-control" value="';
-            echo ($existing_data ? $existing_data->assigned_to : '') . '" readonly />';
-        }
-echo '</div>';
-
-// Field: Tanggal Batas Waktu
-echo '<div class="mb-3">
-        <label for="due_date" class="form-label">Tanggal Batas Waktu</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<input type="date" id="due_date" name="due_date" class="form-control" value="';
-            echo ($existing_data ? date('Y-m-d', $existing_data->due_date) : '') . '" />';
-        } else {
-            echo '<input type="date" id="due_date" name="due_date" class="form-control" value="';
-            echo ($existing_data ? date('Y-m-d', $existing_data->due_date) : '') . '" readonly />';
-        }
-echo '</div>';
-
-// Field: Status Tugas
+// Field: Status Proyek
 if ($is_teacher && !$form_locked_for_students) {
     echo '<div class="mb-3">
-            <label for="status" class="form-label">Status Tugas</label>
+            <label for="status" class="form-label">Status Proyek</label>
             <select id="status" name="status" class="form-control">';
 
     $status_options = [
@@ -96,6 +87,10 @@ if ($is_teacher && !$form_locked_for_students) {
           </div>';
 }
 
-echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(3)">Submit</button>
-    </form>';
+// Tombol submit (hanya aktif jika form tidak terkunci)
+if (!$form_locked_for_students) {
+    echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(3)">Submit</button>';
+}
+
+echo '</form>';
 ?>
