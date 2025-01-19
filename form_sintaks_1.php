@@ -17,7 +17,7 @@ $params = ['cmid' => $cmid, 'groupid' => $groupid, 'courseid' => $courseid];
 $existing_data = $DB->get_record_sql($sql, $params);
 
 // Cek apakah status sudah 'ready_for_next' dan apakah form harus diblokir
-$form_locked = ($existing_data && $existing_data->status == 'ready_for_next');
+$form_locked = ($existing_data && $existing_data->status == 'ready_for_next' && !$is_teacher);
 
 echo '<br>';
 echo '<h3>Form Sintaks 1</h3>';
@@ -35,122 +35,96 @@ if ($form_locked) {
             document.getElementById("rumusan_masalah").setAttribute("readonly", true);
             document.getElementById("indikator").setAttribute("readonly", true);
             document.getElementById("analisis").setAttribute("readonly", true);
-            document.getElementById("status").setAttribute("disabled", true);
             document.getElementById("feedback").setAttribute("readonly", true);
-            document.querySelector("button[type=submit]").setAttribute("disabled", true);
+            document.querySelector("button[type=submit]").style.display = "none"; // Menyembunyikan tombol submit
           </script>';
+
+    // Menambahkan pesan HTML jika form sudah divalidasi
+    echo '<div class="alert alert-info mt-3" role="alert">
+            Sintaks 1 sudah divalidasi. Anda tidak dapat mengubah data lagi.
+          </div>';
 }
+
 echo '<div id="notificationContainer"></div>';
 
-        echo '<div class="mb-3">
-                <label for="orientasi_masalah" class="form-label">Orientasi Masalah</label>';
-
-                // Cek apakah pengguna adalah guru atau bukan
-                if ($is_teacher) {
-                    // Jika guru, form bisa diubah
-                    echo '<textarea id="orientasi_masalah" name="orientasi_masalah" class="form-control" rows="3">';
-                    if ($existing_data) {
-                        echo $existing_data->orientasi_masalah; // Menampilkan data yang ada jika ada
-                    }
-                    echo '</textarea>';
-                } else {
-                    // Jika siswa, form hanya bisa dilihat (read-only)
-                    echo '<input type="text" id="orientasi_masalah" name="orientasi_masalah" class="form-control" value="';
-                    echo ($existing_data ? $existing_data->orientasi_masalah : '') . '" readonly />';
-                }
-        echo '</div>
-
-        <div class="mb-3">
-            <label for="rumusan_masalah" class="form-label">Rumusan Masalah</label>';
-            if (!$form_locked) {
-                echo '<textarea id="rumusan_masalah" name="rumusan_masalah" class="form-control" rows="3">';
-                if ($existing_data) {
-                    echo $existing_data->rumusan_masalah;
-                }
-                echo '</textarea>';
-            } else {
-                echo '<input type="text" id="rumusan_masalah" name="rumusan_masalah" class="form-control" value="';
-                echo ($existing_data ? $existing_data->rumusan_masalah : '') . '" readonly />';
-            }
-        echo '</div>
-        
-        <div class="mb-3">
-            <label for="indikator" class="form-label">Indikator</label>';
-            if (!$form_locked) {
-                echo '<textarea id="indikator" name="indikator" class="form-control" rows="3">';
-                if ($existing_data) {
-                    echo $existing_data->indikator;
-                }
-                echo '</textarea>';
-            } else {
-                echo '<input type="text" id="indikator" name="indikator" class="form-control" value="';
-                echo ($existing_data ? $existing_data->indikator : '') . '" readonly />';
-            }
-        echo '</div>
-        
-        <div class="mb-3">
-            <label for="analisis" class="form-label">Analisis</label>';
-            if (!$form_locked) {
-                echo '<textarea id="analisis" name="analisis" class="form-control" rows="3">';
-                if ($existing_data) {
-                    echo $existing_data->analisis;
-                }
-                echo '</textarea>';
-            } else {
-                echo '<input type="text" id="analisis" name="analisis" class="form-control" value="';
-                echo ($existing_data ? $existing_data->analisis : '') . '" readonly />';
-            }
-        echo '</div>';
-
-        // Menambahkan field status (dropdown) dan feedback untuk guru
-        if ($is_teacher && !$form_locked) {
-            echo '<div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select id="status" name="status" class="form-control">';
-            
-            // Menyediakan pilihan status untuk guru dalam Bahasa Indonesia
-            $status_options = [
-                'incomplete' => 'Belum Lengkap', 
-                'revised' => 'Perlu Revisi', 
-                'ready_for_next' => 'Siap untuk Tahap Berikutnya'
-            ];
-            foreach ($status_options as $value => $label) {
-                $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
-                echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
-            }
-            echo '</select>
-                  </div>';
-
-            echo '<div class="mb-3">
-                    <label for="feedback" class="form-label">Feedback</label>
-                    <textarea id="feedback" name="feedback" class="form-control" rows="3">' . ($existing_data ? $existing_data->feedback : '') . '</textarea>
-                  </div>';
+echo '<div class="mb-3">
+        <label for="orientasi_masalah" class="form-label">Orientasi Masalah</label>';
+        if ($is_teacher || !$form_locked ) {
+            echo '<textarea id="orientasi_masalah" name="orientasi_masalah" class="form-control" rows="3">';
+            echo ($existing_data ? $existing_data->orientasi_masalah : '') . '</textarea>';
         } else {
-            // Untuk siswa, tampilkan dropdown status yang hanya bisa dibaca (readonly)
-            echo '<div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select id="status" name="status" class="form-control" disabled>';
-            
-            // Menyediakan pilihan status untuk siswa dalam Bahasa Indonesia
-            $status_options = [
-                'incomplete' => 'Belum Lengkap', 
-                'revised' => 'Perlu Revisi', 
-                'ready_for_next' => 'Siap untuk Tahap Berikutnya'
-            ];
-            foreach ($status_options as $value => $label) {
-                $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
-                echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
-            }
-            echo '</select>
-                  </div>';
-
-            echo '<div class="mb-3">
-                    <label for="feedback" class="form-label">Feedback</label>
-                    <textarea id="feedback" name="feedback" class="form-control" rows="3" readonly>' . ($existing_data ? $existing_data->feedback : '') . '</textarea>
-                  </div>';
+            echo '<input type="text" id="orientasi_masalah" name="orientasi_masalah" class="form-control" value="';
+            echo ($existing_data ? $existing_data->orientasi_masalah : '') . '" readonly />';
         }
+echo '</div>
 
+<div class="mb-3">
+    <label for="rumusan_masalah" class="form-label">Rumusan Masalah</label>';
+    if (!$form_locked || !$form_locked ) {
+        echo '<textarea id="rumusan_masalah" name="rumusan_masalah" class="form-control" rows="3">';
+        echo ($existing_data ? $existing_data->rumusan_masalah : '') . '</textarea>';
+    } else {
+        echo '<input type="text" id="rumusan_masalah" name="rumusan_masalah" class="form-control" value="';
+        echo ($existing_data ? $existing_data->rumusan_masalah : '') . '" readonly />';
+    }
+echo '</div>
 
-echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(1)">Submit</button>
-    </form>';
+<div class="mb-3">
+    <label for="indikator" class="form-label">Indikator</label>';
+    if (!$form_locked || !$form_locked ) {
+        echo '<textarea id="indikator" name="indikator" class="form-control" rows="3">';
+        echo ($existing_data ? $existing_data->indikator : '') . '</textarea>';
+    } else {
+        echo '<input type="text" id="indikator" name="indikator" class="form-control" value="';
+        echo ($existing_data ? $existing_data->indikator : '') . '" readonly />';
+    }
+echo '</div>
+
+<div class="mb-3">
+    <label for="analisis" class="form-label">Analisis</label>';
+    if (!$form_locked || !$form_locked ) {
+        echo '<textarea id="analisis" name="analisis" class="form-control" rows="3">';
+        echo ($existing_data ? $existing_data->analisis : '') . '</textarea>';
+    } else {
+        echo '<input type="text" id="analisis" name="analisis" class="form-control" value="';
+        echo ($existing_data ? $existing_data->analisis : '') . '" readonly />';
+    }
+echo '</div>';
+
+// Form status hanya untuk guru
+if ($is_teacher) {
+    echo '<div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" name="status" class="form-control">';
+    
+    $status_options = [
+        'incomplete' => 'Belum Lengkap', 
+        'revised' => 'Perlu Revisi', 
+        'ready_for_next' => 'Siap untuk Tahap Berikutnya'
+    ];
+    foreach ($status_options as $value => $label) {
+        $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
+        echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
+    }
+    echo '</select>
+          </div>';
+
+    // Feedback - hanya untuk guru yang bisa mengedit
+    echo '<div class="mb-3">
+            <label for="feedback" class="form-label">Feedback</label>';
+            if ($is_teacher) {
+                echo '<textarea id="feedback" name="feedback" class="form-control" rows="3">';
+                echo ($existing_data ? $existing_data->feedback : '') . '</textarea>';
+            } else {
+                echo '<input type="text" id="feedback" name="feedback" class="form-control" value="';
+                echo ($existing_data ? $existing_data->feedback : '') . '" readonly />';
+            }
+    echo '</div>';
+}
+
+if (!$form_locked) {
+    echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(1)">Submit</button>';
+}
+
+echo '</form>';
 ?>

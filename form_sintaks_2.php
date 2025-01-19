@@ -28,8 +28,6 @@ echo '<form id="formSintaks2Submit" method="POST" action="javascript:void(0)">
         <input type="hidden" name="groupid" value="'.$groupid.'" />
         <input type="hidden" name="courseid" value="'.$courseid.'" />';  // Menyimpan ID Course
 
-echo '<div id="notificationContainer"></div>';
-
 // Menambahkan JavaScript untuk mengunci form jika status sudah 'completed' untuk siswa
 if ($form_locked_for_students) {
     echo '<script>
@@ -37,8 +35,13 @@ if ($form_locked_for_students) {
             document.getElementById("start_date").setAttribute("readonly", true);
             document.getElementById("end_date").setAttribute("readonly", true);
             document.getElementById("status").setAttribute("disabled", true);
-            document.querySelector("button[type=submit]").setAttribute("disabled", true);
+            document.querySelector("button[type=submit]").style.display = "none"; // Menyembunyikan tombol submit
           </script>';
+
+    // Menambahkan pesan HTML jika form sudah divalidasi
+    echo '<div class="alert alert-info mt-3" role="alert">
+            Sintaks 2 sudah divalidasi. Anda tidak dapat mengubah data lagi.
+          </div>';
 }
 
 echo '<div id="notificationContainer"></div>';
@@ -98,6 +101,9 @@ if ($is_teacher && !$form_locked_for_students) {
           </div>';
 }
 
-echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(2)">Submit</button>
-    </form>';
+if (!$form_locked_for_students) {
+    echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(2)">Submit</button>';
+}
+
+echo '</form>';
 ?>

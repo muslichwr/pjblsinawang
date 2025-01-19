@@ -34,48 +34,42 @@ echo '<form id="formSintaks4Submit" method="POST" action="javascript:void(0)" en
 // Menambahkan JavaScript untuk mengunci form jika status sudah 'completed' untuk siswa
 if ($form_locked_for_students) {
     echo '<script>
-            document.getElementById("status").setAttribute("disabled", true);
-            document.getElementById("file_empat").setAttribute("disabled", true);
-            document.getElementById("comments").setAttribute("readonly", true);
-            document.querySelector("button[type=submit]").setAttribute("disabled", true);
+                document.getElementById("status").setAttribute("disabled", true);
+                document.getElementById("file_empat").setAttribute("disabled", true);
+                document.getElementById("comments").setAttribute("readonly", true);
+                document.querySelector("button[type=submit]").setAttribute("disabled", true);
           </script>';
+
+    // Menambahkan pesan HTML jika form sudah divalidasi
+    echo '<div class="alert alert-info mt-3" role="alert">
+            Sintaks 4 sudah divalidasi. Anda tidak dapat mengubah data lagi.
+          </div>';
 }
 
 echo '<div id="notificationContainer"></div>';
 
-// Field: Status Penyelesaian
-echo '<div class="mb-3">
-        <label for="status" class="form-label">Status Penyelesaian</label>';
-        if ($is_teacher || !$form_locked_for_students) {
-            echo '<select id="status" name="status" class="form-control">';
-            $status_options = [
-                'incomplete' => 'Belum Lengkap', 
-                'in-progress' => 'Sedang Berlangsung', 
-                'completed' => 'Selesai'
-            ];
-            foreach ($status_options as $value => $label) {
-                $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
-                echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
-            }
-            echo '</select>';
-        } else {
-            echo '<select id="status" name="status" class="form-control" disabled>';
-            $status_options = [
-                'incomplete' => 'Belum Lengkap', 
-                'in-progress' => 'Sedang Berlangsung', 
-                'completed' => 'Selesai'
-            ];
-            foreach ($status_options as $value => $label) {
-                $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
-                echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
-            }
-            echo '</select>';
-        }
-echo '</div>';
+// Field: Status Proyek
+if ($is_teacher && !$form_locked_for_students) {
+    echo '<div class="mb-3">
+            <label for="status" class="form-label">Status Proyek</label>
+            <select id="status" name="status" class="form-control">';
+
+    $status_options = [
+        'incomplete' => 'Belum Lengkap', 
+        'in-progress' => 'Sedang Berlangsung', 
+        'completed' => 'Selesai'
+    ];
+    foreach ($status_options as $value => $label) {
+        $selected = ($existing_data && $existing_data->status == $value) ? 'selected' : '';
+        echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
+    }
+    echo '</select>
+          </div>';
+}
 
 // Field: Unggah File
 echo '<div class="mb-3">
-        <label for="file_empat" class="form-label">Unggah File (Opsional)</label>';
+        <label for="file_empat" class="form-label">Unggah Dokumentasi (PDF)</label>';
 
 // Ambil draft item ID yang sudah diajukan
 $draft_item_id = file_get_submitted_draft_itemid('file_empat');
@@ -118,7 +112,6 @@ if ($is_teacher || !$form_locked_for_students) {
     }
 }
 
-
 echo '</div>';
 
 // Field: Komentar Guru
@@ -131,6 +124,9 @@ echo '<div class="mb-3">
         }
 echo '</div>';
 
-echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(4)">Submit</button>
-    </form>';
+if (!$form_locked_for_students) {
+    echo '<button type="submit" class="btn btn-primary" onclick="submitSintaksForm(4)">Submit</button>';
+}
+
+echo '</form>';
 ?>

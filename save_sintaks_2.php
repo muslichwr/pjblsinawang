@@ -30,6 +30,11 @@ if ($existing_data) {
     $existing_data->status = $status;  // Update status
     $existing_data->userid = $userid;  // Menyimpan ID pengguna yang terakhir mengubah data
     
+    // Jika status menjadi 'completed', kunci form untuk siswa
+    if ($status == 'completed') {
+        // Kunci form untuk siswa di database jika perlu
+    }
+
     $DB->update_record('pjblsinawang_sintaks_dua', $existing_data);
 } else {
     // Insert data baru jika belum ada
@@ -43,6 +48,11 @@ if ($existing_data) {
     $record->status = $status;
     $record->userid = $userid;  // Menyimpan ID pengguna yang pertama kali mengirimkan data
     
+    // Jika status menjadi 'completed', kunci form untuk siswa
+    if ($status == 'completed') {
+        // Kunci form untuk siswa di database jika perlu
+    }
+
     $DB->insert_record('pjblsinawang_sintaks_dua', $record);
 }
 

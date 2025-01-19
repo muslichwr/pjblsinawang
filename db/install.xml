@@ -56,8 +56,6 @@
                 <FIELD NAME="groupid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Group ID"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="User ID"/>
                 <FIELD NAME="task_name" TYPE="text" NOTNULL="false" COMMENT="Nama tugas"/>
-                <FIELD NAME="assigned_to" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" COMMENT="Siswa yang diberi tugas"/>
-                <FIELD NAME="due_date" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Tanggal batas waktu tugas"/>
                 <FIELD NAME="status" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="incomplete" COMMENT="Status tugas (completed, in-progress, incomplete)"/>
             </FIELDS>
             <KEYS>
